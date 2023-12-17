@@ -34,9 +34,10 @@ CREATE TABLE `Company` (
 CREATE TABLE `Vacancy` (
     `id` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NOT NULL,
+    `description` LONGTEXT NOT NULL,
     `numbersExpected` INTEGER NOT NULL,
     `companyId` VARCHAR(191) NOT NULL,
+    `type` ENUM('remote', 'on_office') NOT NULL,
     `finalDate` DATETIME(3) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 

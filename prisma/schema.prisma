@@ -47,14 +47,21 @@ model Company {
   Vacancy   Vacancy[]
 }
 
+enum WorkType {
+  remote
+  on_office
+}
+
 model Vacancy {
   id              String @id() @default(uuid())
   title           String
-  description     String
+  description     String @db.LongText
   numbersExpected Int
 
   companyId String
   Company   Company @relation(fields: [companyId], references: [id])
+
+  type WorkType
 
   finalDate DateTime
   createdAt DateTime @default(now())

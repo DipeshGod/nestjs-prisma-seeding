@@ -24,7 +24,7 @@
     "db:migrate": "npx prisma migrate dev",
     "db:migrate:status": "npx prisma migrate status",
     "db:migrate:deploy": "npx prisma migrate deploy",
-    "reset-db": "prisma migrate reset"
+    "db:reset": "prisma migrate reset"
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
