@@ -19,21 +19,60 @@ model User {
 
   isAdmin     Boolean @default(false)
   isApplicant Boolean @default(false)
+  isHiring    Boolean @default(false)
 
   createdAt DateTime    @default(now())
   Applicant Applicant[]
+  Company   Company[]
+}
+
+model Company {
+  id String @id() @default(uuid())
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  companyName    String
+  domain         String
+  operatingSince DateTime
+  country        String
+  mainLocation   String
+
+  longitude Decimal
+  latitutde Decimal
+
+  logoUrl String?
+
+  createdAt DateTime  @default(now())
+  Vacancy   Vacancy[]
+}
+
+model Vacancy {
+  id              String @id() @default(uuid())
+  title           String
+  description     String
+  numbersExpected Int
+
+  companyId String
+  Company   Company @relation(fields: [companyId], references: [id])
+
+  finalDate DateTime
+  createdAt DateTime @default(now())
 }
 
 model Applicant {
   id String @id() @default(uuid())
 
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  User   User   @relation(fields: [userId], references: [id])
 
   professionalTitle String
   country           String
+  city              String
   yearsOfExperience Decimal
 
   photoUrl  String?
   resumeUrl String?
+
+  createdAt DateTime @default(now())
 }
