@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('delete all data ...');
   // order of execution matters due to referential integrity
-  await prisma.applicant.deleteMany();
+  await prisma.applicantProfile.deleteMany();
   await prisma.vacancy.deleteMany();
   await prisma.company.deleteMany();
   await prisma.user.deleteMany();

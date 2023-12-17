@@ -21,8 +21,8 @@ model User {
   isApplicant Boolean @default(false)
   isHiring    Boolean @default(false)
 
-  createdAt DateTime    @default(now())
-  Applicant Applicant[]
+  createdAt DateTime           @default(now())
+  Applicant ApplicantProfile[]
   Company   Company[]
 }
 
@@ -43,8 +43,9 @@ model Company {
 
   logoUrl String?
 
-  createdAt DateTime  @default(now())
-  Vacancy   Vacancy[]
+  createdAt    DateTime       @default(now())
+  Vacancy      Vacancy[]
+  Applications Applications[]
 }
 
 enum WorkType {
@@ -63,11 +64,12 @@ model Vacancy {
 
   type WorkType
 
-  finalDate DateTime
-  createdAt DateTime @default(now())
+  finalDate    DateTime
+  createdAt    DateTime       @default(now())
+  Applications Applications[]
 }
 
-model Applicant {
+model ApplicantProfile {
   id String @id() @default(uuid())
 
   userId String
@@ -80,6 +82,33 @@ model Applicant {
 
   photoUrl  String?
   resumeUrl String?
+
+  createdAt    DateTime       @default(now())
+  Applications Applications[]
+}
+
+enum ApplicationStage {
+  pending
+  resume_passed
+  assignment_passed
+  technical_interview_passed
+  technical_assignment_passed
+  final_interview_passed
+  hired
+  notMovedForwardWith
+}
+
+model Applications {
+  id String @id() @default(uuid())
+
+  applicantProfileId String
+  ApplicantProfile   ApplicantProfile @relation(fields: [applicantProfileId], references: [id])
+  vacancyId          String
+  Vacancy            Vacancy          @relation(fields: [vacancyId], references: [id])
+  companyId          String
+  Company            Company          @relation(fields: [companyId], references: [id])
+
+  applicationStage ApplicationStage
 
   createdAt DateTime @default(now())
 }
